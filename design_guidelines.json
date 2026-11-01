@@ -1,0 +1,128 @@
+{
+  "theme": "Light Theme Default (Editorial Clinical Data Lab)",
+  "typography": {
+    "headings": {
+      "font": "Cormorant Garamond",
+      "style": "Serif, Authoritative, High-Contrast Weights (Light or Bold)",
+      "usage": "H1, H2, Hero statements, Page titles"
+    },
+    "body": {
+      "font": "IBM Plex Sans",
+      "style": "Clean, highly readable, objective",
+      "usage": "Paragraphs, methodology descriptions, disclaimers"
+    },
+    "data": {
+      "font": "IBM Plex Mono",
+      "style": "Sterile, precise, tabular",
+      "usage": "Model metrics, SHAP values, probabilities, form inputs, table cells"
+    },
+    "rules": "Never use Inter for headings. Keep tight letter spacing (tracking-tighter) for H1/H2."
+  },
+  "colors": {
+    "background": "#F4F4F0",
+    "surface_white": "#FFFFFF",
+    "surface_subtle": "#EBEBE8",
+    "primary_dark": "#0A0A0A",
+    "text_primary": "#111111",
+    "text_secondary": "#5C5C5C",
+    "border_light": "#E2E2E0",
+    "border_dark": "#111111",
+    "risk_high": "#D0342C",
+    "risk_medium": "#E07A15",
+    "risk_low": "#2F8450",
+    "chart_palette": ["#0A0A0A", "#D0342C", "#E07A15", "#2F8450", "#1E3A8A", "#701A75", "#92400E", "#3F6212", "#475569"],
+    "rules": "Avoid gradients. No generic SaaS purple/blue. Do NOT use #1B93A4 (Teal) or #7351B7. Rely on flat, solid clinical colors."
+  },
+  "visual_enhancers": {
+    "surfaces": "Flat solid surfaces. Medical apps must avoid glassmorphism to prevent data refraction. Use opaque backgrounds.",
+    "borders": "1px solid border (border-black/10). Sharp corners (rounded-none or rounded-sm).",
+    "shadows": "Minimal to none. Use shadow-sm strictly for hover feedback on cards or buttons.",
+    "textures": "Subtle noise/grain overlay on the hero section background to emulate medical paper."
+  },
+  "components": {
+    "forms": {
+      "layout": "Dense high-density grid (grid-cols-1 md:grid-cols-3 lg:grid-cols-4). Group inputs by clinical category.",
+      "styling": "Flat inputs, 1px solid border, no inner shadow. Use Shadcn components.",
+      "typography": "Labels: text-xs uppercase tracking-widest text-text_secondary. Inputs: IBM Plex Mono."
+    },
+    "badges": {
+      "styling": "Sharp edges, solid flat background, high contrast text.",
+      "risk_low": "bg-[#2F8450]/15 text-[#143D25] border border-[#2F8450]/30",
+      "risk_medium": "bg-[#E07A15]/15 text-[#6B3A0A] border border-[#E07A15]/30",
+      "risk_high": "bg-[#D0342C]/15 text-[#611814] border border-[#D0342C]/30"
+    },
+    "result_gauge": {
+      "library": "Recharts PieChart (180 to 0 degrees) or SVG arc.",
+      "styling": "Thick stroke (12px-16px). Color dictated by risk level. Center text uses huge IBM Plex Mono percentage.",
+      "animation": "Animate progress on page load."
+    },
+    "comparison_tables": {
+      "layout": "Dense, tabular design. Full width, border-collapse with border-b on rows.",
+      "typography": "Header: text-xs uppercase. Cells: IBM Plex Mono text-sm.",
+      "highlighting": "Highlight best model (e.g., Voting/Stacking) with a subtle bg-[#EBEBE8] or a 'BEST' badge."
+    }
+  },
+  "grids": {
+    "home": "Asymmetrical 'Tetris' grid. Mix large clinical imagery with dense text blocks. Wide gaps (gap-8).",
+    "dashboard": "High Density Grid (grid-cols-1 md:grid-cols-3 lg:grid-cols-4). Every pixel utilized, tight gaps (gap-4). No jagged bottoms."
+  },
+  "layouts": {
+    "spacing": "Generous (p-12, p-16) for Home and About pages. Dense and compact (p-4, p-6) for Predict, Result, and EDA Dashboard.",
+    "alignment": "Left-align dense content and forms. Optical alignment for icons."
+  },
+  "motion": {
+    "interactions": "Subtle and precise. Hover states should feature slight color shifts and 1px border darkens.",
+    "animations": "Use staggered fades for dashboard cards and form fields on mount."
+  },
+  "accessibility": {
+    "contrast": "Ensure APCA/WCAG AA contrast. Never rely on color alone (use text + icon for risk levels).",
+    "testing": "All interactive and key informational elements MUST include a data-testid attribute (e.g., data-testid='predict-btn')."
+  },
+  "media": {
+    "strategy": "Use scientific, microscopic, or clean lab imagery. No generic tech vectors.",
+    "image_urls": [
+      {
+        "url": "https://images.pexels.com/photos/8442033/pexels-photo-8442033.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+        "category": "Home Hero / Background",
+        "description": "Clean clinical lab with microscope"
+      },
+      {
+        "url": "https://images.pexels.com/photos/11516492/pexels-photo-11516492.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+        "category": "EDA Dashboard / Result Page Visual",
+        "description": "Abstract microscopic cell structure"
+      }
+    ]
+  },
+  "3d_libraries": {
+    "recommendation": "Use Recharts for all standard data visualizations (EDA, ROC, Feature Importance). No 3D libraries needed; keep it 2D and clinically precise."
+  },
+  "instructions_to_main_agent": [
+    "Design a distinct 'Clinical Journal' aesthetic. Do NOT use generic purple/blue SaaS gradients.",
+    "Never use purely transparent backgrounds on headers or overlays. Use solid #F4F4F0 or #FFFFFF.",
+    "All files must be .js or .jsx, NOT .tsx.",
+    "Use Shadcn UI components but heavily customize them to look flat, removing heavy rounded corners and shadows.",
+    "Ensure Recharts components use IBM Plex Mono for axis labels and tooltips.",
+    "Add informative tooltips for clinical acronyms (e.g., SG, AL, PC) in the Prediction form.",
+    "Add 'data-testid' to ALL interactive elements, forms, and key metric displays."
+  ],
+  "UNIVERSAL GUIDELINES FOR MAIN AGENT": [
+    "You tend to converge toward generic, 'on distribution' outputs. Avoid this.",
+    "Dark colors look good when used independently without gradients. DO NOT use dark colors as gradients.",
+    "Don't make generic centered layouts, simplistic gradients, and uniform styling.",
+    "Create depth through layered design elements with z-index hierarchy (use flat surfaces with hard borders).",
+    "You MUST NOT apply universal transition. Eg: transition: all. Target specific properties.",
+    "You MUST NOT center align the app container, ie do not add .App { text-align: center; } in the css file.",
+    "Always use modern button styles like sharp cornered buttons with interaction animations & color relevant to the app style.",
+    "NEVER use AI assistant Emoji characters like 🤖🧠💭💡🔮🎯 etc for icons. Use Phosphor Icons or Lucide.",
+    "Every interaction needs micro-animations - hover states, transitions.",
+    "Use 2-3x more spacing than feels comfortable on marketing pages.",
+    "Prioritize using pre-existing components from src/components/ui.",
+    "Use sonner for toasts, located in /app/src/components/ui/sonner.js."
+  ],
+  "GENERAL UI UX DESIGN GUIDELINES": [
+    "Consistency is key: stick to the defined typography scales and color palette.",
+    "Provide clear feedback for user actions (loading states on prediction submit, success toasts).",
+    "Keep cognitive load low by logically grouping the 24 clinical features in the Prediction form.",
+    "Ensure the result page explicitly displays the medical disclaimer prominently alongside the prediction."
+  ]
+}

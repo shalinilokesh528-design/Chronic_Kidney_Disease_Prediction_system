@@ -1,0 +1,36 @@
+{
+  "summary": "First-finish testing of CKD prediction app completed. Backend (6 endpoints) and frontend (6 pages, full predict->result flow) verified against public URL. All backend endpoints return correct shapes; both CKD and Non-CKD predict flows work end-to-end from the UI including model selection, sample loading, and result rendering.",
+  "tested_scope": ["backend", "frontend", "integration"],
+  "passed": [
+    "GET /api/health -> status=ok, model_loaded=true",
+    "GET /api/schema -> 14 numerical + 10 categorical features, best_model=Random Forest, 12 available_models (Logistic Regression, Decision Tree, Random Forest, SVM, XGBoost, KNN, Gradient Boosting, AdaBoost, DNN (MLP), Voting Ensemble, Stacking Ensemble, DNN + XGBoost Hybrid)",
+    "GET /api/models/comparison -> 12 models each with accuracy/precision/recall/specificity/f1/roc_auc/tn/fp/fn/tp; roc_curves and feature_importance present; best_model=Random Forest",
+    "GET /api/eda -> class_distribution {ckd:250, notckd:150 = 400}, 24 missing_by_column entries, 14 numerical_stats, hemoglobin_by_class + creatinine_by_class present",
+    "POST /api/predict (CKD payload) -> prediction=CKD, probability=1.0, risk_level=High, model_used=Random Forest, 'contributions' array populated with feature/value/importance/score/direction",
+    "POST /api/predict (Normal payload) -> prediction=Non-CKD, probability=0.025, risk_level=Low",
+    "POST /api/predict with model=XGBoost -> model_used=XGBoost, prediction=CKD",
+    "GET /api/predictions/history -> items array (4 persisted)",
+    "Home page renders: 'Nephrolytic', tagline 'A rigorous look at Chronic Kidney Disease', 12 models trained/AUC 1.00 stat cards, disclaimer",
+    "Predict page: all data-testid selectors present (predict-submit, load-sample-ckd, load-sample-normal, model-select, input-age)",
+    "End-to-end CKD flow: load-sample-ckd -> predict-submit -> /result shows verdict='Chronic Kidney Disease', probability=100%, risk='High risk', model='Random Forest'",
+    "End-to-end Normal flow: load-sample-normal -> predict-submit -> /result shows verdict='Non-CKD', probability=2.5%, risk='Low risk'",
+    "Models page: models-table with 12 rows, 'Best' badge visible, metric-select/models-bar/models-roc all present",
+    "Dashboard page: eda-stats, eda-class, eda-missing all present",
+    "About page: methodology + disclaimer sections visible",
+    "Top-nav navigation across Home/Predict/Models/Dashboard/About works"
+  ],
+  "failed": [
+    {
+      "area": "Frontend / Recharts",
+      "issue": "Recharts ResponsiveContainer emits 'width(-1) and height(-1) should be greater than 0' warnings on Result, Models, and Dashboard pages during initial render",
+      "evidence": "Multiple console warnings during page load; charts still render correctly in screenshots. Non-blocking but noisy in console.",
+      "priority": "LOW"
+    }
+  ],
+  "action_items": [
+    "Optional: set explicit minHeight/aspect on Recharts ResponsiveContainer parents (Result gauge, Models bar/ROC, Dashboard charts) to silence width/height=-1 warnings."
+  ],
+  "success_rate": {"backend": "100%", "frontend": "100%"},
+  "retest_needed": false,
+  "full_testing_deferred": true
+}

@@ -1,0 +1,149 @@
+{
+  "results": {
+    "Logistic Regression": {
+      "accuracy": 0.9875,
+      "precision": 1.0,
+      "recall": 0.98,
+      "specificity": 1.0,
+      "f1": 0.98989898989899,
+      "roc_auc": 1.0,
+      "tn": 30,
+      "fp": 0,
+      "fn": 1,
+      "tp": 49
+    },
+    "Decision Tree": {
+      "accuracy": 0.9875,
+      "precision": 1.0,
+      "recall": 0.98,
+      "specificity": 1.0,
+      "f1": 0.98989898989899,
+      "roc_auc": 0.99,
+      "tn": 30,
+      "fp": 0,
+      "fn": 1,
+      "tp": 49
+    },
+    "Random Forest": {
+      "accuracy": 1.0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "specificity": 1.0,
+      "f1": 1.0,
+      "roc_auc": 1.0,
+      "tn": 30,
+      "fp": 0,
+      "fn": 0,
+      "tp": 50
+    },
+    "SVM": {
+      "accuracy": 0.9875,
+      "precision": 1.0,
+      "recall": 0.98,
+      "specificity": 1.0,
+      "f1": 0.98989898989899,
+      "roc_auc": 1.0,
+      "tn": 30,
+      "fp": 0,
+      "fn": 1,
+      "tp": 49
+    },
+    "XGBoost": {
+      "accuracy": 1.0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "specificity": 1.0,
+      "f1": 1.0,
+      "roc_auc": 1.0,
+      "tn": 30,
+      "fp": 0,
+      "fn": 0,
+      "tp": 50
+    },
+    "KNN": {
+      "accuracy": 0.9625,
+      "precision": 1.0,
+      "recall": 0.94,
+      "specificity": 1.0,
+      "f1": 0.9690721649484536,
+      "roc_auc": 0.99,
+      "tn": 30,
+      "fp": 0,
+      "fn": 3,
+      "tp": 47
+    },
+    "Gradient Boosting": {
+      "accuracy": 1.0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "specificity": 1.0,
+      "f1": 1.0,
+      "roc_auc": 1.0,
+      "tn": 30,
+      "fp": 0,
+      "fn": 0,
+      "tp": 50
+    },
+    "AdaBoost": {
+      "accuracy": 0.9875,
+      "precision": 1.0,
+      "recall": 0.98,
+      "specificity": 1.0,
+      "f1": 0.98989898989899,
+      "roc_auc": 1.0,
+      "tn": 30,
+      "fp": 0,
+      "fn": 1,
+      "tp": 49
+    },
+    "DNN (MLP)": {
+      "accuracy": 0.9875,
+      "precision": 1.0,
+      "recall": 0.98,
+      "specificity": 1.0,
+      "f1": 0.98989898989899,
+      "roc_auc": 1.0,
+      "tn": 30,
+      "fp": 0,
+      "fn": 1,
+      "tp": 49
+    },
+    "Voting Ensemble": {
+      "accuracy": 1.0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "specificity": 1.0,
+      "f1": 1.0,
+      "roc_auc": 1.0,
+      "tn": 30,
+      "fp": 0,
+      "fn": 0,
+      "tp": 50
+    },
+    "Stacking Ensemble": {
+      "accuracy": 1.0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "specificity": 1.0,
+      "f1": 1.0,
+      "roc_auc": 1.0,
+      "tn": 30,
+      "fp": 0,
+      "fn": 0,
+      "tp": 50
+    },
+    "DNN + XGBoost Hybrid": {
+      "accuracy": 0.975,
+      "precision": 0.98,
+      "recall": 0.98,
+      "specificity": 0.9666666666666667,
+      "f1": 0.98,
+      "roc_auc": 0.9733333333333333,
+      "tn": 29,
+      "fp": 1,
+      "fn": 1,
+      "tp": 49
+    }
+  },
+  "best_model": "Random Forest"
+}

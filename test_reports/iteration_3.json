@@ -1,0 +1,39 @@
+{
+  "summary": "Tested 4 new research features (Cohort Compare, Feature Ablation, Retrain-From-UI, Training History) end-to-end. All 8 new backend endpoints pass pytest (13/13 total). All new /compare and /lab UI flows verified via Playwright: ablation retrains 6 models with dropped groups reflected in chart+table, retrain job kicks off, streams logs, completes in ~8s with best_model populated, history table renders 7 rows. Nav links compare/lab present. Found and FIXED one critical bug: retrain subprocess spawned via 'python -m ml.pipeline' resolved to system python3 (no joblib) instead of the venv, causing every retrain to fail immediately.",
+  "backend_issues": {
+    "critical": [],
+    "minor": []
+  },
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": [
+      {"screen": "/compare risk-band chart", "issues": ["Recharts logs 'width(-1) height(-1)' warnings on first paint; in extreme cases (100% concentrated in a single band) the bars can appear near-invisible against the axis baseline — consider adding min-bar-size or explicit y-domain [0,1]"]},
+      {"screen": "/compare DiffKV", "issues": ["'Δ Mean prob' is a probability delta but rendered with 'pts' suffix like the percentage-point deltas — slightly misleading unit label"]}
+    ]
+  },
+  "test_report_links": [
+    "/app/backend/tests/test_research_features.py",
+    "/app/backend/tests/test_new_features.py",
+    "/app/test_reports/pytest/pytest_research.xml"
+  ],
+  "action_items": [
+    "(optional) Improve Compare risk-band chart rendering when a cohort has 100% concentration in one band",
+    "(optional) Migrate deprecated FastAPI on_event startup/shutdown to lifespan"
+  ],
+  "critical_code_review_comments": [
+    "history.py used bare 'python' in subprocess → picked up /usr/bin/python3 which lacks project deps (joblib). Fixed by switching to sys.executable so the venv interpreter is always used. Same class of bug applies anywhere subprocess.Popen(['python', ...]) is used.",
+    "Compare.jsx DiffKV: color logic assumes 'positive delta = red/bad', which is fine for CKD-rate but conceptually couples semantics into a generic component.",
+    "Lab.jsx Retrain component: pollJob uses setInterval but is not cleared on component unmount → memory leak / stale-state warning if user navigates away mid-training."
+  ],
+  "updated_files": [
+    "/app/backend/ml/history.py (subprocess python → sys.executable)",
+    "/app/backend/tests/test_research_features.py (new)"
+  ],
+  "success_rate": {"backend": "100% (13/13)", "frontend": "100%"},
+  "seed_data_creation": "None — reused /app/cohort_a.csv and /app/cohort_b.csv.",
+  "retest_needed": false,
+  "should_main_agent_self_test": false,
+  "context_for_next_testing_agent": "All 4 research features fully functional. Retrain now completes in ~7-10s (small dataset). Frontend nav includes Compare + Lab links. If retesting, use pytest /app/backend/tests/ (all 13 pass). Playwright covers /lab (ablation 6 rows, retrain success, history table) and /compare (upload two CSVs → diff summary + risk chart).",
+  "rca of the issue": "Retrain always failed: subprocess spawned 'python -m ml.pipeline' via PATH; supervisor's PATH resolved to /usr/bin/python3 (system Python without ML deps) rather than the /root/.venv/bin/python that runs uvicorn. Reproduce: POST /api/retrain/start then GET /api/retrain/jobs → logs show ModuleNotFoundError: joblib. Fix: use sys.executable so the current interpreter (the one running FastAPI) is used, guaranteeing access to the same site-packages."
+}
